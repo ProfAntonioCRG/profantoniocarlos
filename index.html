@@ -16,9 +16,20 @@
                     <div class="logo-icon">📚</div>
                     <span>Prof. Antonio Carlos</span>
                 </div>
-                <ul class="nav-menu">
+                <!-- Menu Hambúrguer para Mobile -->
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
                     <li><a href="#sobre" class="nav-link">Sobre</a></li>
+                    <li><a href="#experiencia" class="nav-link">Experiência</a></li>
                     <li><a href="#disciplinas" class="nav-link">Disciplinas</a></li>
+                    <li><a href="#portfolio" class="nav-link">Portfólio</a></li>
+                    <li><a href="#recursos" class="nav-link">Recursos</a></li>
+                    <li><a href="#depoimentos" class="nav-link">Depoimentos</a></li>
+                    <li><a href="#interativo" class="nav-link">Calculadora</a></li>
                     <li><a href="#contato" class="nav-link">Contato</a></li>
                 </ul>
             </div>
@@ -29,8 +40,8 @@
     <section class="hero">
         <div class="hero-content">
             <div class="hero-avatar">📖</div>
-            <h1>Professor Antonio Carlos</h1>
-            <p class="hero-subtitle">Professor de Desenvolvimento de Sistemas</p>
+            <h1 id="typingTitle">Professor Antonio Carlos</h1>
+            <p class="hero-subtitle" id="typingSubtitle">Professor de Desenvolvimento de Sistemas</p>
             <p class="hero-description">
                 Dedicado ao ensino de tecnologia e desenvolvimento de sistemas com foco em excelência acadêmica e prática profissional.
             </p>
@@ -40,8 +51,8 @@
     <!-- About Section -->
     <section id="sobre" class="about">
         <div class="container">
-            <h2>Sobre</h2>
-            <div class="about-content">
+            <h2 class="section-title fade-in-up">Sobre</h2>
+            <div class="about-content fade-in-up">
                 <p>
                     Sou professor especializado em Desenvolvimento de Sistemas com experiência em ensino de disciplinas fundamentais e avançadas da computação. Minha abordagem pedagógica combina teoria sólida com prática aplicada, preparando os alunos para os desafios do mercado de tecnologia.
                 </p>
@@ -52,40 +63,73 @@
         </div>
     </section>
 
+    <!-- Experience Section -->
+    <section id="experiencia" class="experience">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Experiência Profissional</h2>
+            <div class="experience-grid">
+                <div class="experience-card fade-in-up">
+                    <div class="experience-icon">💻</div>
+                    <h3>20 Anos</h3>
+                    <p>Trabalhando com Computadores e Tecnologia</p>
+                    <div class="experience-bar">
+                        <div class="experience-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="experience-card fade-in-up">
+                    <div class="experience-icon">🌐</div>
+                    <h3>10 Anos</h3>
+                    <p>Programação em HTML, CSS e Web</p>
+                    <div class="experience-bar">
+                        <div class="experience-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+                <div class="experience-card fade-in-up">
+                    <div class="experience-icon">👨‍🏫</div>
+                    <h3>Mentor</h3>
+                    <p>Dedicado ao Ensino e Desenvolvimento de Alunos</p>
+                    <div class="experience-bar">
+                        <div class="experience-fill" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Disciplines Section -->
     <section id="disciplinas" class="disciplines">
         <div class="container">
-            <h2>Disciplinas Lecionadas</h2>
+            <h2 class="section-title fade-in-up">Disciplinas Lecionadas</h2>
             <div class="disciplines-grid">
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">⚙️</div>
                     <h3>Introdução à Computação</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">🔀</div>
                     <h3>Lógica Computacional</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">💾</div>
                     <h3>Ciência da Computação</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">🎨</div>
                     <h3>Programação FrontEnd</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">📊</div>
                     <h3>Análise e Projeto de Sistemas</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">🖼️</div>
                     <h3>Computação Gráfica</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">📈</div>
                     <h3>Análise de Dados</h3>
                 </div>
-                <div class="discipline-card">
+                <div class="discipline-card hover-lift">
                     <div class="discipline-icon">⚡</div>
                     <h3>Programação BackEnd</h3>
                 </div>
@@ -96,19 +140,19 @@
     <!-- Specialties Section -->
     <section class="specialties">
         <div class="container">
-            <h2>Áreas de Especialidade</h2>
+            <h2 class="section-title fade-in-up">Áreas de Especialidade</h2>
             <div class="specialties-grid">
-                <div class="specialty-card">
+                <div class="specialty-card hover-lift fade-in-up">
                     <div class="specialty-icon">💻</div>
                     <h3>Programação</h3>
                     <p>FrontEnd, BackEnd e desenvolvimento full-stack</p>
                 </div>
-                <div class="specialty-card">
+                <div class="specialty-card hover-lift fade-in-up">
                     <div class="specialty-icon">🗂️</div>
                     <h3>Sistemas</h3>
                     <p>Análise, projeto e arquitetura de sistemas</p>
                 </div>
-                <div class="specialty-card">
+                <div class="specialty-card hover-lift fade-in-up">
                     <div class="specialty-icon">📉</div>
                     <h3>Dados</h3>
                     <p>Análise de dados e computação gráfica</p>
@@ -117,11 +161,132 @@
         </div>
     </section>
 
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Portfólio - Projetos de Alunos</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-card hover-lift fade-in-up">
+                    <div class="portfolio-icon">🎮</div>
+                    <h3>Jogo da Memória</h3>
+                    <p>Desenvolvido em HTML, CSS e JavaScript. Alunos aprendem lógica de eventos e manipulação do DOM.</p>
+                </div>
+                <div class="portfolio-card hover-lift fade-in-up">
+                    <div class="portfolio-icon">📱</div>
+                    <h3>Aplicativo de Tarefas</h3>
+                    <p>App responsivo com localStorage. Prática de JavaScript avançado e design responsivo.</p>
+                </div>
+                <div class="portfolio-card hover-lift fade-in-up">
+                    <div class="portfolio-icon">📊</div>
+                    <h3>Dashboard de Dados</h3>
+                    <p>Visualização de dados com gráficos. Integração com APIs e análise de informações.</p>
+                </div>
+                <div class="portfolio-card hover-lift fade-in-up">
+                    <div class="portfolio-icon">🛒</div>
+                    <h3>E-commerce Simulado</h3>
+                    <p>Projeto completo com carrinho de compras, filtros e sistema de pagamento.</p>
+                </div>
+                <div class="portfolio-card hover-lift fade-in-up">
+                    <div class="portfolio-icon">🌐</div>
+                    <h3>Site Responsivo</h3>
+                    <p>Desenvolvimento de sites modernos com CSS Grid, Flexbox e animações.</p>
+                </div>
+                <div class="portfolio-card hover-lift fade-in-up">
+                    <div class="portfolio-icon">🔐</div>
+                    <h3>Sistema de Login</h3>
+                    <p>Autenticação, validação de formulários e segurança básica em JavaScript.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section id="recursos" class="resources">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Materiais e Recursos</h2>
+            <div class="resources-grid">
+                <div class="resource-card hover-lift fade-in-up">
+                    <div class="resource-icon">📄</div>
+                    <h3>Apostilas em PDF</h3>
+                    <p>Materiais de estudo completos para cada disciplina</p>
+                    <a href="#" class="resource-link">Baixar →</a>
+                </div>
+                <div class="resource-card hover-lift fade-in-up">
+                    <div class="resource-icon">🎥</div>
+                    <h3>Vídeo Aulas</h3>
+                    <p>Conteúdo em vídeo com explicações passo a passo</p>
+                    <a href="#" class="resource-link">Assistir →</a>
+                </div>
+                <div class="resource-card hover-lift fade-in-up">
+                    <div class="resource-icon">💻</div>
+                    <h3>Exercícios Práticos</h3>
+                    <p>Lista de exercícios com diferentes níveis de dificuldade</p>
+                    <a href="#" class="resource-link">Acessar →</a>
+                </div>
+                <div class="resource-card hover-lift fade-in-up">
+                    <div class="resource-icon">📚</div>
+                    <h3>Referências</h3>
+                    <p>Links para documentação oficial e recursos externos</p>
+                    <a href="#" class="resource-link">Explorar →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="depoimentos" class="testimonials">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Depoimentos de Alunos</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card fade-in-up">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"O Professor Antonio Carlos é excelente! Suas aulas são claras, objetivas e muito práticas. Aprendi muito em pouco tempo."</p>
+                    <p class="testimonial-author">- João Silva, Aluno de Programação FrontEnd</p>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Nunca pensei que programação seria tão interessante. O professor torna tudo simples e divertido!"</p>
+                    <p class="testimonial-author">- Maria Santos, Aluna de Lógica Computacional</p>
+                </div>
+                <div class="testimonial-card fade-in-up">
+                    <div class="stars">⭐⭐⭐⭐⭐</div>
+                    <p class="testimonial-text">"Excelente metodologia de ensino. Consegui aplicar tudo que aprendi em projetos reais."</p>
+                    <p class="testimonial-author">- Carlos Oliveira, Aluno de Análise de Sistemas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Section -->
+    <section id="interativo" class="interactive">
+        <div class="container">
+            <h2 class="section-title fade-in-up">Calculadora de Notas</h2>
+            <div class="calculator-container fade-in-up">
+                <div class="calculator">
+                    <div class="calculator-input-group">
+                        <label for="nota1">Nota 1 (0-10):</label>
+                        <input type="number" id="nota1" min="0" max="10" step="0.1" placeholder="Digite a nota">
+                    </div>
+                    <div class="calculator-input-group">
+                        <label for="nota2">Nota 2 (0-10):</label>
+                        <input type="number" id="nota2" min="0" max="10" step="0.1" placeholder="Digite a nota">
+                    </div>
+                    <div class="calculator-input-group">
+                        <label for="nota3">Nota 3 (0-10):</label>
+                        <input type="number" id="nota3" min="0" max="10" step="0.1" placeholder="Digite a nota">
+                    </div>
+                    <button class="calc-button" id="calcButton">Calcular Média</button>
+                    <div class="calculator-result" id="calcResult"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Contact Section -->
     <section id="contato" class="contact">
         <div class="container">
-            <h2>Entre em Contato</h2>
-            <div class="contact-info">
+            <h2 class="section-title fade-in-up">Entre em Contato</h2>
+            <div class="contact-info fade-in-up">
                 <div class="contact-item">
                     <span class="contact-icon">✉️</span>
                     <span>antonio.carlos@escola.pr.gov.br</span>
@@ -138,6 +303,9 @@
             <button class="contact-button">Enviar Mensagem</button>
         </div>
     </section>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="backToTop" title="Voltar ao topo">⬆️</button>
 
     <!-- Footer -->
     <footer class="footer">
