@@ -1,169 +1,141 @@
 // ============================================
-// FUNCIONALIDADES JAVASCRIPT COM ANIMAÇÕES
-// ============================================
-
-// ============================================
 // ANIMAÇÃO 1: EFEITO DE DIGITAÇÃO NO TÍTULO
 // ============================================
-// Cria um efeito de digitação no título principal
-// Simula o texto sendo digitado letra por letra
-
-function typeEffect(element, text, speed = 50) {
-    let index = 0;
-    element.textContent = '';
+// Simula o efeito de máquina de escrever digitando o nome e subtítulo
+function typeEffect() {
+    const titleElement = document.getElementById('typingTitle');
+    const subtitleElement = document.getElementById('typingSubtitle');
+    const title = 'Professor Antonio Carlos';
+    const subtitle = 'Professor de Desenvolvimento de Sistemas';
     
-    function type() {
-        if (index < text.length) {
-            element.textContent += text.charAt(index);
-            index++;
-            setTimeout(type, speed);
+    let titleIndex = 0;
+    let subtitleIndex = 0;
+    
+    // Função para digitar o título
+    function typeTitle() {
+        if (titleIndex < title.length) {
+            titleElement.textContent += title.charAt(titleIndex);
+            titleIndex++;
+            setTimeout(typeTitle, 50);
+        } else {
+            typeSubtitle();
         }
     }
     
-    type();
+    // Função para digitar o subtítulo
+    function typeSubtitle() {
+        if (subtitleIndex < subtitle.length) {
+            subtitleElement.textContent += subtitle.charAt(subtitleIndex);
+            subtitleIndex++;
+            setTimeout(typeSubtitle, 30);
+        }
+    }
+    
+    // Inicia a digitação
+    typeTitle();
 }
 
-// Aplicar efeito de digitação ao carregar a página
-document.addEventListener('DOMContentLoaded', function() {
-    const titleElement = document.getElementById('typingTitle');
-    const subtitleElement = document.getElementById('typingSubtitle');
-    
-    if (titleElement) {
-        typeEffect(titleElement, 'Professor Antonio Carlos', 80);
-    }
-    
-    if (subtitleElement) {
-        setTimeout(() => {
-            typeEffect(subtitleElement, 'Professor de Desenvolvimento de Sistemas', 50);
-        }, 2000);
-    }
-});
-
 // ============================================
-// ANIMAÇÃO 2: SCROLL ANIMATIONS - FADE IN UP
+// ANIMAÇÃO 2: SCROLL ANIMATIONS (FADE IN UP)
 // ============================================
-// Elementos aparecem com fade e movimento para cima quando entram na viewport
-// Usa IntersectionObserver para detectar quando elementos ficam visíveis
-
-function initScrollAnimations() {
+// Elementos aparecem com fade e movimento para cima ao entrar na viewport
+function setupScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
-        rootMargin: '0px 0px -100px 0px'
+        rootMargin: '0px 0px -50px 0px'
     };
-
+    
     const observer = new IntersectionObserver(function(entries) {
-        entries.forEach((entry, index) => {
+        entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Adiciona delay progressivo para efeito em cascata
-                setTimeout(() => {
-                    entry.target.style.animation = 'fadeInUp 0.6s ease-out forwards';
-                    observer.unobserve(entry.target);
-                }, index * 100);
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
-
-    // Observar todos os elementos com classe fade-in-up
+    
+    // Observa todos os elementos com classe fade-in-up
     document.querySelectorAll('.fade-in-up').forEach(element => {
         observer.observe(element);
     });
 }
 
-document.addEventListener('DOMContentLoaded', initScrollAnimations);
-
 // ============================================
-// ANIMAÇÃO 3: HOVER LIFT - CARTÕES SOBEM AO PASSAR MOUSE
+// MENU HAMBÚRGUER RESPONSIVO
 // ============================================
-// Cartões sobem com sombra aumentada quando o mouse passa
-// Implementado via CSS com transição suave
-
-// O efeito é definido no CSS com @keyframes hoverLift
-// Aqui apenas garantimos que a classe hover-lift está sendo aplicada corretamente
-
-document.querySelectorAll('.hover-lift').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.boxShadow = 'var(--shadow-xl)';
+// Ícone rotaciona formando X, menu desliza em mobile
+function setupHamburger() {
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+    
+    if (!hamburger || !navMenu) return;
+    
+    hamburger.addEventListener('click', function() {
+        // ANIMAÇÃO 3: Menu Hambúrguer - Rotação do ícone
+        hamburger.classList.toggle('active');
+        // ANIMAÇÃO 4: Menu Deslizante - Menu abre/fecha com transição
+        navMenu.classList.toggle('active');
     });
     
-    card.addEventListener('mouseleave', function() {
-        this.style.boxShadow = 'var(--shadow)';
-    });
-});
-
-// ============================================
-// MENU MOBILE - HAMBÚRGUER
-// ============================================
-// Menu responsivo que abre/fecha ao clicar no ícone hambúrguer
-// Funciona apenas em telas pequenas (mobile)
-
-const hamburger = document.getElementById('hamburger');
-const navMenu = document.getElementById('navMenu');
-
-if (hamburger) {
-    hamburger.addEventListener('click', function() {
-        // ANIMAÇÃO 4: Toggle do Menu Hambúrguer
-        // Rotaciona as linhas do ícone e abre/fecha o menu
-        this.classList.toggle('active');
-        navMenu.classList.toggle('active');
+    // Fecha o menu ao clicar em um link
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
     });
 }
 
-// Fechar menu ao clicar em um link
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function() {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('active');
-    });
-});
-
 // ============================================
-// NAVEGAÇÃO ATIVA - DESTAQUE DO ITEM ATIVO
+// NAVEGAÇÃO ATIVA
 // ============================================
-// Destaca o link de navegação da seção que está visível
-// Atualiza conforme o usuário faz scroll
-
-window.addEventListener('scroll', () => {
+// Link do menu é destacado conforme a seção visível
+function setupActiveNavigation() {
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
-
-    let current = '';
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (pageYOffset >= sectionTop - 200) {
-            current = section.getAttribute('id');
-        }
+    
+    window.addEventListener('scroll', function() {
+        let current = '';
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            
+            if (scrollY >= sectionTop - 200) {
+                current = section.getAttribute('id');
+            }
+        });
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href').slice(1) === current) {
+                link.classList.add('active');
+            }
+        });
     });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href').slice(1) === current) {
-            link.classList.add('active');
-        }
-    });
-});
+}
 
 // ============================================
 // ANIMAÇÃO 5: BOTÃO VOLTAR AO TOPO
 // ============================================
-// Botão aparece quando o usuário rola a página para baixo
-// Clicando volta ao topo com scroll suave
-
-const backToTopButton = document.getElementById('backToTop');
-
-if (backToTopButton) {
-    window.addEventListener('scroll', () => {
-        // Mostrar/ocultar botão baseado na posição de scroll
-        if (window.pageYOffset > 300) {
-            backToTopButton.classList.add('show');
+// Botão aparece ao rolar para baixo e volta ao topo com scroll suave
+function setupBackToTop() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    
+    if (!backToTopBtn) return;
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            // Mostra o botão com animação
+            backToTopBtn.classList.add('show');
         } else {
-            backToTopButton.classList.remove('show');
+            // Esconde o botão
+            backToTopBtn.classList.remove('show');
         }
     });
-
-    backToTopButton.addEventListener('click', function() {
-        // ANIMAÇÃO 6: Scroll Suave para o Topo
-        // Usa scroll behavior smooth do CSS
+    
+    backToTopBtn.addEventListener('click', function() {
+        // Scroll suave até o topo
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
@@ -172,178 +144,111 @@ if (backToTopButton) {
 }
 
 // ============================================
-// SMOOTH SCROLL PARA LINKS DE NAVEGAÇÃO
+// CALCULADORA DE NOTAS
 // ============================================
-// Navegação suave entre seções ao clicar nos links
-// Implementado com scroll-behavior: smooth no CSS
-
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
-});
-
-// ============================================
-// CALCULADORA DE NOTAS INTERATIVA
-// ============================================
-// Calcula a média de 2 notas (N1 e N2) e exibe o resultado com animação
-
-const calcButton = document.getElementById('calcButton');
-const calcResult = document.getElementById('calcResult');
-
-if (calcButton) {
-    calcButton.addEventListener('click', function() {
-        // ANIMAÇÃO 7: Cálculo de Média com Feedback Visual
-        const nota1 = parseFloat(document.getElementById('nota1').value);
-        const nota2 = parseFloat(document.getElementById('nota2').value);
-
-        // Validar entradas
-        if (isNaN(nota1) || isNaN(nota2)) {
-            calcResult.className = 'calculator-result error';
-            calcResult.textContent = '❌ Por favor, preencha N1 e N2!';
+// Calcula média de 2 notas (N1 + N2) com validação e feedback visual
+// Critérios: >= 6 Aprovado, 4-5 Recuperação, < 4 Reprovado
+function setupCalculator() {
+    const calcularBtn = document.getElementById('calcularBtn');
+    const nota1Input = document.getElementById('nota1');
+    const nota2Input = document.getElementById('nota2');
+    const resultadoDiv = document.getElementById('resultado');
+    
+    if (!calcularBtn || !nota1Input || !nota2Input || !resultadoDiv) return;
+    
+    calcularBtn.addEventListener('click', function() {
+        const nota1 = parseFloat(nota1Input.value);
+        const nota2 = parseFloat(nota2Input.value);
+        
+        // Validação das notas
+        if (isNaN(nota1) || isNaN(nota2) || nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10) {
+            alert('Por favor, preencha as duas notas com valores entre 0 e 10');
             return;
         }
-
-        if (nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10) {
-            calcResult.className = 'calculator-result error';
-            calcResult.textContent = '❌ As notas devem estar entre 0 e 10!';
-            return;
-        }
-
-        // Calcular média
+        
+        // Calcula a média
         const media = (nota1 + nota2) / 2;
-        const mediaFormatada = media.toFixed(2);
-
-        // Determinar status com novos critérios
+        
+        // Determina o status e a cor
         let status = '';
+        let classe = '';
+        
         if (media >= 6) {
             status = '✅ Aprovado';
+            classe = 'aprovado';
         } else if (media >= 4 && media < 6) {
-            status = '⚠️ Recuperação';
+            status = '🔄 Recuperação';
+            classe = 'recuperacao';
         } else {
             status = '❌ Reprovado';
+            classe = 'reprovado';
         }
-
-        // Exibir resultado com animação
-        calcResult.className = 'calculator-result success';
-        calcResult.innerHTML = `
-            <div>
-                <strong>Média: ${mediaFormatada}</strong><br>
-                <span>${status}</span>
-            </div>
-        `;
-
-        // Adicionar animação de escala
-        calcResult.style.animation = 'scaleUp 0.4s ease-out';
+        
+        // Exibe o resultado com animação
+        resultadoDiv.className = `resultado show ${classe}`;
+        resultadoDiv.innerHTML = `<strong>Média: ${media.toFixed(2)}</strong><br>${status}`;
     });
-
-    // Permitir cálculo ao pressionar Enter
-    document.querySelectorAll('.calculator-input-group input').forEach(input => {
+    
+    // Permite calcular ao pressionar Enter
+    [nota1Input, nota2Input].forEach(input => {
         input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                calcButton.click();
+                calcularBtn.click();
             }
         });
     });
 }
 
 // ============================================
-// FUNCIONALIDADE DO BOTÃO DE CONTATO
+// ANIMAÇÃO 6: HOVER LIFT NOS CARTÕES
 // ============================================
-// Abre o cliente de email padrão ao clicar
-
-document.querySelector('.contact-button')?.addEventListener('click', function() {
-    const email = 'antonio.carlos@escola.pr.gov.br';
-    const subject = 'Contato - Professor Antonio Carlos';
-    const body = 'Olá Professor Antonio Carlos,\n\nGostaria de entrar em contato com você.\n\nAtenciosamente';
+// Cartões sobem com sombra aumentada ao passar o mouse
+// Mantém os cartões visíveis ao fazer hover (não desaparecem)
+function setupHoverEffects() {
+    const cards = document.querySelectorAll('.hover-lift');
     
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
-
-// ============================================
-// ANIMAÇÃO 8: RIPPLE EFFECT EM BOTÕES
-// ============================================
-// Efeito de ondulação ao clicar em botões
-// Cria uma animação visual de "onda" saindo do ponto de clique
-
-document.querySelectorAll('button').forEach(button => {
-    button.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        ripple.style.position = 'absolute';
-        ripple.style.borderRadius = '50%';
-        ripple.style.backgroundColor = 'rgba(255, 255, 255, 0.5)';
-        ripple.style.pointerEvents = 'none';
-        ripple.style.animation = 'rippleAnimation 0.6s ease-out';
-
-        // Adicionar estilo de posição relativa ao botão se necessário
-        if (getComputedStyle(this).position === 'static') {
-            this.style.position = 'relative';
-            this.style.overflow = 'hidden';
-        }
-
-        this.appendChild(ripple);
-
-        setTimeout(() => ripple.remove(), 600);
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            // Mantém o cartão visível com animação suave
+            this.style.transition = 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            // Volta ao estado normal suavemente
+            this.style.transition = 'all 0.3s ease';
+        });
     });
-});
-
-// Adicionar animação ripple ao CSS dinamicamente
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes rippleAnimation {
-        from {
-            transform: scale(0);
-            opacity: 1;
-        }
-        to {
-            transform: scale(4);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
+}
 
 // ============================================
 // SUPORTE PARA IMAGEM DO PROFESSOR
 // ============================================
 // Permite que o usuário carregue uma imagem do professor
 // A imagem é armazenada no localStorage para persistência
-
-function initProfessorImage() {
+function setupProfessorImage() {
     const professorImage = document.getElementById('professorImage');
     const heroImage = document.getElementById('heroImage');
+    
+    if (!professorImage || !heroImage) return;
+    
     const savedImage = localStorage.getItem('professorImage');
-
+    
     // Se houver imagem salva, carregar
     if (savedImage) {
         professorImage.src = savedImage;
         heroImage.src = savedImage;
     }
-
+    
     // Permitir que o usuário carregue uma imagem ao clicar
-    if (professorImage) {
-        professorImage.style.cursor = 'pointer';
-        professorImage.title = 'Clique para adicionar sua foto';
+    [professorImage, heroImage].forEach(img => {
+        img.style.cursor = 'pointer';
+        img.title = 'Clique para adicionar sua foto';
         
-        professorImage.addEventListener('click', function() {
+        img.addEventListener('click', function() {
             const input = document.createElement('input');
             input.type = 'file';
             input.accept = 'image/*';
+            
             input.addEventListener('change', function(e) {
                 const file = e.target.files[0];
                 if (file) {
@@ -357,55 +262,41 @@ function initProfessorImage() {
                     reader.readAsDataURL(file);
                 }
             });
+            
             input.click();
         });
-    }
-
-    // Permitir que o usuário carregue uma imagem ao clicar na imagem hero
-    if (heroImage) {
-        heroImage.style.cursor = 'pointer';
-        heroImage.title = 'Clique para adicionar sua foto';
-        
-        heroImage.addEventListener('click', function() {
-            const input = document.createElement('input');
-            input.type = 'file';
-            input.accept = 'image/*';
-            input.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        const imageData = event.target.result;
-                        professorImage.src = imageData;
-                        heroImage.src = imageData;
-                        localStorage.setItem('professorImage', imageData);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-            input.click();
-        });
-    }
-}
-
-// Inicializar suporte de imagem ao carregar a página
-document.addEventListener('DOMContentLoaded', initProfessorImage);
-
-// ============================================
-// DETECÇÃO DE MODO ESCURO DO SISTEMA
-// ============================================
-// Detecta se o usuário prefere modo escuro
-// Pode ser expandido para implementar tema escuro
-
-if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    console.log('Modo escuro detectado no sistema');
+    });
 }
 
 // ============================================
-// LOG DE CARREGAMENTO
+// INICIALIZAÇÃO
 // ============================================
-// Mensagem de confirmação no console
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicia todas as animações e funcionalidades
+    typeEffect();
+    setupScrollAnimations();
+    setupHamburger();
+    setupActiveNavigation();
+    setupBackToTop();
+    setupCalculator();
+    setupHoverEffects();
+    setupProfessorImage();
+    
+    console.log('✅ Página carregada com todas as animações ativas');
+    console.log('📸 Clique na foto do professor para adicionar sua imagem');
+});
 
-console.log('🎓 Página do Professor Antonio Carlos carregada com sucesso!');
-console.log('✨ Todas as animações e funcionalidades estão ativas!');
-console.log('📸 Clique na foto para adicionar sua imagem!');
+// ============================================
+// RESUMO DAS ANIMAÇÕES IMPLEMENTADAS
+// ============================================
+/*
+1. EFEITO DE DIGITAÇÃO - Título e subtítulo aparecem como máquina de escrever
+2. SCROLL ANIMATIONS (FADE IN UP) - Elementos aparecem com fade ao entrar na viewport
+3. MENU HAMBÚRGUER - Ícone rotaciona e menu desliza em mobile
+4. NAVEGAÇÃO ATIVA - Links do menu são destacados conforme seção visível
+5. BOTÃO VOLTAR AO TOPO - Aparece ao rolar e volta ao topo com scroll suave
+6. HOVER LIFT - Cartões sobem com sombra ao passar o mouse (permanecem visíveis)
+7. CALCULADORA DE NOTAS - Calcula média com validação e feedback visual
+8. IMAGEM DO PROFESSOR - Permite carregar foto com persistência em localStorage
+9. TRANSIÇÕES SUAVES - Todos os elementos têm transições de 0.3s
+*/
