@@ -193,7 +193,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============================================
 // CALCULADORA DE NOTAS INTERATIVA
 // ============================================
-// Calcula a média de 3 notas e exibe o resultado com animação
+// Calcula a média de 2 notas (N1 e N2) e exibe o resultado com animação
 
 const calcButton = document.getElementById('calcButton');
 const calcResult = document.getElementById('calcResult');
@@ -203,30 +203,29 @@ if (calcButton) {
         // ANIMAÇÃO 7: Cálculo de Média com Feedback Visual
         const nota1 = parseFloat(document.getElementById('nota1').value);
         const nota2 = parseFloat(document.getElementById('nota2').value);
-        const nota3 = parseFloat(document.getElementById('nota3').value);
 
         // Validar entradas
-        if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+        if (isNaN(nota1) || isNaN(nota2)) {
             calcResult.className = 'calculator-result error';
-            calcResult.textContent = '❌ Por favor, preencha todas as notas!';
+            calcResult.textContent = '❌ Por favor, preencha N1 e N2!';
             return;
         }
 
-        if (nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10 || nota3 < 0 || nota3 > 10) {
+        if (nota1 < 0 || nota1 > 10 || nota2 < 0 || nota2 > 10) {
             calcResult.className = 'calculator-result error';
             calcResult.textContent = '❌ As notas devem estar entre 0 e 10!';
             return;
         }
 
         // Calcular média
-        const media = (nota1 + nota2 + nota3) / 3;
+        const media = (nota1 + nota2) / 2;
         const mediaFormatada = media.toFixed(2);
 
-        // Determinar status
+        // Determinar status com novos critérios
         let status = '';
-        if (media >= 7) {
+        if (media >= 6) {
             status = '✅ Aprovado';
-        } else if (media >= 5) {
+        } else if (media >= 4 && media < 6) {
             status = '⚠️ Recuperação';
         } else {
             status = '❌ Reprovado';
@@ -261,7 +260,7 @@ if (calcButton) {
 // Abre o cliente de email padrão ao clicar
 
 document.querySelector('.contact-button')?.addEventListener('click', function() {
-    const email = 'antonio.carlos@instituicao.edu.br';
+    const email = 'antonio.carlos@escola.pr.gov.br';
     const subject = 'Contato - Professor Antonio Carlos';
     const body = 'Olá Professor Antonio Carlos,\n\nGostaria de entrar em contato com você.\n\nAtenciosamente';
     
@@ -320,6 +319,79 @@ style.textContent = `
 document.head.appendChild(style);
 
 // ============================================
+// SUPORTE PARA IMAGEM DO PROFESSOR
+// ============================================
+// Permite que o usuário carregue uma imagem do professor
+// A imagem é armazenada no localStorage para persistência
+
+function initProfessorImage() {
+    const professorImage = document.getElementById('professorImage');
+    const heroImage = document.getElementById('heroImage');
+    const savedImage = localStorage.getItem('professorImage');
+
+    // Se houver imagem salva, carregar
+    if (savedImage) {
+        professorImage.src = savedImage;
+        heroImage.src = savedImage;
+    }
+
+    // Permitir que o usuário carregue uma imagem ao clicar
+    if (professorImage) {
+        professorImage.style.cursor = 'pointer';
+        professorImage.title = 'Clique para adicionar sua foto';
+        
+        professorImage.addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const imageData = event.target.result;
+                        professorImage.src = imageData;
+                        heroImage.src = imageData;
+                        localStorage.setItem('professorImage', imageData);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            input.click();
+        });
+    }
+
+    // Permitir que o usuário carregue uma imagem ao clicar na imagem hero
+    if (heroImage) {
+        heroImage.style.cursor = 'pointer';
+        heroImage.title = 'Clique para adicionar sua foto';
+        
+        heroImage.addEventListener('click', function() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = 'image/*';
+            input.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const imageData = event.target.result;
+                        professorImage.src = imageData;
+                        heroImage.src = imageData;
+                        localStorage.setItem('professorImage', imageData);
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            input.click();
+        });
+    }
+}
+
+// Inicializar suporte de imagem ao carregar a página
+document.addEventListener('DOMContentLoaded', initProfessorImage);
+
+// ============================================
 // DETECÇÃO DE MODO ESCURO DO SISTEMA
 // ============================================
 // Detecta se o usuário prefere modo escuro
@@ -336,3 +408,4 @@ if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').match
 
 console.log('🎓 Página do Professor Antonio Carlos carregada com sucesso!');
 console.log('✨ Todas as animações e funcionalidades estão ativas!');
+console.log('📸 Clique na foto para adicionar sua imagem!');

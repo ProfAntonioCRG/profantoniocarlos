@@ -13,7 +13,9 @@
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-logo">
-                    <div class="logo-icon">📚</div>
+                    <div class="logo-container">
+                        <img id="professorImage" class="professor-image" src="" alt="Foto do Professor Antonio Carlos" title="Clique para adicionar sua foto">
+                    </div>
                     <span>Prof. Antonio Carlos</span>
                 </div>
                 <!-- Menu Hambúrguer para Mobile -->
@@ -39,7 +41,9 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-content">
-            <div class="hero-avatar">📖</div>
+            <div class="hero-avatar-container">
+                <img id="heroImage" class="hero-image" src="" alt="Foto do Professor Antonio Carlos" title="Sua foto aqui">
+            </div>
             <h1 id="typingTitle">Professor Antonio Carlos</h1>
             <p class="hero-subtitle" id="typingSubtitle">Professor de Desenvolvimento de Sistemas</p>
             <p class="hero-description">
@@ -164,7 +168,7 @@
     <!-- Portfolio Section -->
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2 class="section-title fade-in-up">Portfólio - Projetos de Alunos</h2>
+            <h2 class="section-title fade-in-up">Projetos em Destaque do TCC 2025</h2>
             <div class="portfolio-grid">
                 <div class="portfolio-card hover-lift fade-in-up">
                     <div class="portfolio-icon">🎮</div>
@@ -257,26 +261,22 @@
         </div>
     </section>
 
-    <!-- Interactive Section -->
+    <!-- Interactive Calculator Section -->
     <section id="interativo" class="interactive">
         <div class="container">
             <h2 class="section-title fade-in-up">Calculadora de Notas</h2>
             <div class="calculator-container fade-in-up">
-                <div class="calculator">
-                    <div class="calculator-input-group">
-                        <label for="nota1">Nota 1 (0-10):</label>
-                        <input type="number" id="nota1" min="0" max="10" step="0.1" placeholder="Digite a nota">
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label for="nota1">N1 (0-10):</label>
+                        <input type="number" id="nota1" placeholder="Digite a nota" min="0" max="10" step="0.1">
                     </div>
-                    <div class="calculator-input-group">
-                        <label for="nota2">Nota 2 (0-10):</label>
-                        <input type="number" id="nota2" min="0" max="10" step="0.1" placeholder="Digite a nota">
+                    <div class="form-group">
+                        <label for="nota2">N2 (0-10):</label>
+                        <input type="number" id="nota2" placeholder="Digite a nota" min="0" max="10" step="0.1">
                     </div>
-                    <div class="calculator-input-group">
-                        <label for="nota3">Nota 3 (0-10):</label>
-                        <input type="number" id="nota3" min="0" max="10" step="0.1" placeholder="Digite a nota">
-                    </div>
-                    <button class="calc-button" id="calcButton">Calcular Média</button>
-                    <div class="calculator-result" id="calcResult"></div>
+                    <button id="calcularBtn" class="btn-calcular">Calcular Média</button>
+                    <div id="resultado" class="resultado"></div>
                 </div>
             </div>
         </div>
@@ -286,31 +286,33 @@
     <section id="contato" class="contact">
         <div class="container">
             <h2 class="section-title fade-in-up">Entre em Contato</h2>
-            <div class="contact-info fade-in-up">
-                <div class="contact-item">
-                    <span class="contact-icon">✉️</span>
-                    <span>antonio.carlos@instituicao.edu.br</span>
+            <div class="contact-content fade-in-up">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <span class="contact-icon">📧</span>
+                        <a href="mailto:antonio.carlos@escola.pr.gov.br">antonio.carlos@escola.pr.gov.br</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📱</span>
+                        <a href="https://wa.me/5541999999999" target="_blank">(41) 99999-9999</a>
+                    </div>
+                    <div class="contact-item">
+                        <span class="contact-icon">📍</span>
+                        <span>Instituição de Ensino</span>
+                    </div>
                 </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📞</span>
-                    <span>(XX) XXXXX-XXXX</span>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <span>Instituição de Ensino</span>
-                </div>
+                <button class="btn-contact" onclick="alert('Funcionalidade de envio de mensagem em desenvolvimento')">Enviar Mensagem</button>
             </div>
-            <button class="contact-button">Enviar Mensagem</button>
         </div>
     </section>
 
-    <!-- Back to Top Button -->
-    <button class="back-to-top" id="backToTop" title="Voltar ao topo">⬆️</button>
-
     <!-- Footer -->
     <footer class="footer">
-        <p>&copy; 2024 Professor Antonio Carlos. Todos os direitos reservados.</p>
+        <p>&copy; 2025 Professor Antonio Carlos. Todos os direitos reservados.</p>
     </footer>
+
+    <!-- Botão Voltar ao Topo -->
+    <button id="backToTopBtn" class="back-to-top">⬆️</button>
 
     <script src="script.js"></script>
 </body>
